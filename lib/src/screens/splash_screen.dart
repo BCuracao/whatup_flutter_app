@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:whatup/src/screens/registration_screen.dart';
 
 import 'home_screen.dart';
 
@@ -43,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen>
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
           builder: (context) =>
-              const HomeScreen()), // Replace HomeScreen with your desired home screen widget
+              const RegistrationScreen()), // Replace HomeScreen with your desired home screen widget
     );
   }
 

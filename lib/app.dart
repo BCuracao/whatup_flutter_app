@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whatup/src/screens/home_screen.dart';
-import 'src/screens/splash_screen.dart';
+import 'package:whatup/utils/login_wrapper.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -12,7 +12,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      home: const LoginWrapper(),
       routes: {
         '/home': (context) =>
             const HomeScreen(), // Replace with your home screen widget

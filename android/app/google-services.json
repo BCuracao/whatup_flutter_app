@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "105417500513",
+    "project_id": "whatup-1e26d",
+    "storage_bucket": "whatup-1e26d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105417500513:android:761e1061bf5f0b09ff8720",
+        "android_client_info": {
+          "package_name": "com.example.whatup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105417500513-2dhqlo9qb2tooftsg6e78lpfsb7n0q9l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZNsWaSKIcmB1xWTaA-A4A_ME0mKDqUwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105417500513-2dhqlo9qb2tooftsg6e78lpfsb7n0q9l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
