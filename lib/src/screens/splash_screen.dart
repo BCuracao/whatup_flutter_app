@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:whatup/src/screens/registration_screen.dart';
-
-import 'home_screen.dart';
+import 'package:whatup/utils/login_wrapper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -24,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   startTime() async {
-    var duration = const Duration(seconds: 2);
+    var duration = const Duration(milliseconds: 4500);
     return Timer(duration, navigateToNextScreen);
   }
 
@@ -33,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen>
       _opacity = _opacity == 0.0 ? 1.0 : 0.0;
     });
 
-    Future.delayed(const Duration(milliseconds: 1000), () {
+    Future.delayed(const Duration(milliseconds: 750), () {
       if (mounted) {
         animateOpacity();
       }
@@ -44,21 +42,21 @@ class _SplashScreenState extends State<SplashScreen>
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
           builder: (context) =>
-              const RegistrationScreen()), // Replace HomeScreen with your desired home screen widget
+              const LoginWrapper()), // Replace HomeScreen with your desired home screen widget
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF81DBDB),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Center(
         child: FractionallySizedBox(
           widthFactor: 1,
           heightFactor: 1,
           child: AnimatedOpacity(
             opacity: _opacity,
-            duration: const Duration(milliseconds: 1000),
+            duration: const Duration(milliseconds: 2000),
             child: Image.asset('lib/assets/images/splashscreen_4_nobg.png'),
           ),
         ),

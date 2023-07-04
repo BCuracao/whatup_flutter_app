@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,19 +15,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late Color randBoxColor;
+
   @override
   Widget build(BuildContext context) {
+    // Sort events by date
     _events.sort((a, b) => a['date'].compareTo(b['date']));
 
     return Scaffold(
-      backgroundColor: const Color(0xFF81DBDB),
-      body: SingleChildScrollView(
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: List.generate(_events.length, (index) {
+          padding: const EdgeInsets.all(1.0),
+          child: StaggeredGridView.countBuilder(
+            crossAxisCount: 4,
+            itemCount: _events.length,
+            itemBuilder: (BuildContext context, int index) {
               double height =
                   (100 + _events[index]['numContacts'] * 10).toDouble();
               double width = max(100, height);
@@ -34,34 +38,44 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: height,
                 width: width,
                 child: Card(
+                  color: randBoxColor,
                   child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          _events[index]['title'],
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'Date: ${DateFormat('yyyy-MM-dd').format(_events[index]['date'])}',
-                        ),
-                        Text(
-                          'Contacts: ${_events[index]['numContacts']}',
-                        ),
-                      ],
+                    padding: EdgeInsets.all(8),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            _events[index]['title'],
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'Date: ${DateFormat('dd-MM').format(_events[index]['date'])}',
+                          ),
+                          Text(
+                            'People: ${_events[index]['numContacts']}',
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               );
-            }),
+            },
+            staggeredTileBuilder: (int index) {
+              int numContacts = _events[index]['numContacts'];
+              double aspectRatio = 1 + numContacts * 0.1;
+              return StaggeredTile.extent(2, aspectRatio * 100.0);
+            },
+            mainAxisSpacing: 0.0,
+            crossAxisSpacing: 0.0,
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showEventCreationForm(),
+        child: Icon(Icons.add),
         backgroundColor: Colors.blue,
-        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
@@ -70,6 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Map<String, dynamic>> _events = [];
 
   void _createEvent(String title, DateTime date, int numContacts) {
+    randBoxColor =
+        Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
     setState(() {
       _events.add({
         'title': title,
